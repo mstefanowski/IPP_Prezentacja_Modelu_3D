@@ -33,3 +33,27 @@ Kolejnym problemem może być przechwytywanie ruchów myszką podczas obracania 
 # Wygląd Aplikacji
 
  [![ekran.png](https://i.postimg.cc/Jhbs62f3/ekran.png)](https://postimg.cc/zLGD30X3)
+
+# Raport nr 2
+
+Maciej Stefanowski
+
+#
+
+Pierwszym krokiem w stworzeniu mojej aplikacji było utworzenie głównego okna. Stworzyłem go za pomocą programu Qt Designer. Zapisałem plik jako .ui, a później w terminalu przekonwertowałem go na .py za pomocą komendy „pyuic5 main\_window.ui -o main\_window.py&quot;
+
+Zrefaktorowałem kod wygenerowany przez Qt Designer, żeby był on bardziej czytelny.
+
+Okno główne zawiera następujące elementy:
+
+1. Pole podania pozycji kamery
+2. Pole podania kierunku patrzenia
+3. Opcja zaznaczenia powierzchni zasłoniętych
+4. Opcja zaznaczenia oświetlenia
+5. Pole podania kierunku oświetlenia
+6. Slider do zoomowania
+7. Przycisk do wczytywania obiektu
+
+W ramach poszerzenia wiedzy w grafice komputerowej zacząłem się uczyć z kursu Grafiki komputerowej i wizualizacji udostępnionego przez Wydział Matematyki, Informatyki i Mechaniki Uniwersytetu Warszawskiego Autorstwa Dariusza Sawickiego.
+
+Kolejnym krokiem w tworzeniu projektu będzie załadowanie obrazka 3D z pliku i wyświetlenie samych jego krawędzi bez powierzchni. W następnych krokach dodam możliwość przesuwania i obracania obrazka, a ostatnimi elementami będzie wyświetlanie powierzchni i dodanie oświetlenia.
