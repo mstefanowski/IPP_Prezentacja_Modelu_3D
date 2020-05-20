@@ -1,7 +1,7 @@
 def file_loader():
     wierzcholki = []
     polygon_list = []
-    f = open("szescian.obj", "r")
+    f = open("minecraft-steve.obj", "r")
     for x in f:
         if x.startswith("v "):
             wierzcholek = []

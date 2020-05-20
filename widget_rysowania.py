@@ -1,7 +1,7 @@
 from PyQt5.QtGui     import *
 from PyQt5.QtCore    import *
 from PyQt5.QtWidgets import *
-
+import math
 
 class Widget_rysowania(QWidget):
     def __init__(self, parent):
@@ -50,13 +50,21 @@ class Widget_rysowania(QWidget):
                 [0, 1, 0, 0], 
                 [0, 0, 1, 0], 
                 [0, 0, 1/d, 0]]
+    
+    def stworz_macierz_obrotu_OY(self, kat):
+        return [
+                [math.cos(kat), 0, math.sin(kat), 0],
+                [0, 1, 0, 0], 
+                [-math.sin(kat), 0, math.cos(kat), 0], 
+                [0, 0, 0, 1]]
 
     def narysuj_polygon(self, polygon, painter):
-        d=80
+        d=200
         QPoint_list = []
         macierz_rzut = self.stworz_macierz_rzutu(d)
         macierz_przesuniecia = self.stworz_macierz_przesuniecia(self.przesuniecie_x, self.przesuniecie_y, self.przesuniecie_z)
-        macierz_przeksztalcen = self.matmult(macierz_rzut, macierz_przesuniecia)
+        macierz_obrotu = self.stworz_macierz_obrotu_OY(math.radians(self.obrot_y))
+        macierz_przeksztalcen = self.matmult(self.matmult(macierz_rzut, macierz_przesuniecia), macierz_obrotu) 
         for punkt in polygon:
             x = punkt + [1]
             Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
@@ -83,3 +91,8 @@ class Widget_rysowania(QWidget):
         self.przesuniecie_y = y 
         self.przesuniecie_z = z
 
+
+    def obroc(self, x, y, z):
+        self.obrot_x = x
+        self.obrot_y = y
+        self.obrot_z = z
