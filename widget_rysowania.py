@@ -60,7 +60,7 @@ class Widget_rysowania(QWidget):
         for punkt in polygon:
             x = punkt + [1]
             Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
-            QPoint_list.append(QPoint(Zrzutowany_Punkt[0], Zrzutowany_Punkt[1]))
+            QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
         print(QPoint_list)
         painter.drawPolygon(QPolygon(QPoint_list))
 

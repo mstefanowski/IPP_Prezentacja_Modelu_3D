@@ -119,5 +119,5 @@ if __name__ == '__main__':
     okno = Ui_MainWindow()
     okno.setupUi()
     okno.widget_modelu.wstaw_obiekt(file_loader())
-    okno.widget_modelu.przesun(-150, -150, 0)
+    okno.widget_modelu.przesun(-300, -250, -50)
     sys.exit(app.exec_())
