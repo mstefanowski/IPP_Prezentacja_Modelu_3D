@@ -1,7 +1,7 @@
-def file_loader():
+def file_loader(file):
     wierzcholki = []
     polygon_list = []
-    f = open("low-poly-fox-by-pixelmannen.obj", "r")
+    f = open(file, "r")
     for x in f:
         if x.startswith("v "):
             wierzcholek = []

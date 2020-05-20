@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog
 from widget_rysowania import Widget_rysowania
 from file_loader import file_loader
 
@@ -101,9 +101,13 @@ class Ui_MainWindow(QMainWindow):
         self.label_rotate = QtWidgets.QLabel(self.centralwidget)
         self.label_rotate.setGeometry(QtCore.QRect(320, 400, 67, 17))
         self.label_rotate.setObjectName("label_rotate")
+
         self.button_wczytaj_obiekt = QtWidgets.QPushButton(self.centralwidget)
         self.button_wczytaj_obiekt.setGeometry(QtCore.QRect(550, 420, 111, 25))
         self.button_wczytaj_obiekt.setObjectName("button_wczytaj_obiekt")
+        self.button_wczytaj_obiekt.clicked.connect(self.klikniecie)
+
+
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
@@ -138,6 +142,11 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.przesun(kamera_x, kamera_y, kamera_z)
         self.widget_modelu.update()
 
+    def klikniecie(self):
+        otworz_plik = QFileDialog.getOpenFileName(self, 'Open file','' ,"Object files (*.obj)")
+        self.widget_modelu.wstaw_obiekt(file_loader(otworz_plik[0]))
+        self.widget_modelu.update()
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Prezentacja Modelu 3D"))
@@ -155,7 +164,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     okno = Ui_MainWindow()
     okno.setupUi()
-    okno.widget_modelu.wstaw_obiekt(file_loader())
+    okno.widget_modelu.wstaw_obiekt(file_loader("minecraft-steve.obj"))
     okno.widget_modelu.przesun(0, 0, 100)
     okno.widget_modelu.obroc(0, 45, 0)
     sys.exit(app.exec_())
