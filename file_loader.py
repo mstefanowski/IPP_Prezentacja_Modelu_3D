@@ -1,7 +1,7 @@
 def file_loader():
     wierzcholki = []
     polygon_list = []
-    f = open("minecraft-steve.obj", "r")
+    f = open("low-poly-fox-by-pixelmannen.obj", "r")
     for x in f:
         if x.startswith("v "):
             wierzcholek = []

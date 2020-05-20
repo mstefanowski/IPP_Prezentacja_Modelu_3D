@@ -59,7 +59,7 @@ class Widget_rysowania(QWidget):
                 [0, 0, 0, 1]]
 
     def narysuj_polygon(self, polygon, painter):
-        d=200
+        d=-70
         QPoint_list = []
         macierz_rzut = self.stworz_macierz_rzutu(d)
         macierz_przesuniecia = self.stworz_macierz_przesuniecia(self.przesuniecie_x, self.przesuniecie_y, self.przesuniecie_z)

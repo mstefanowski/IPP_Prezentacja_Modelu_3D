@@ -28,28 +28,36 @@ class Ui_MainWindow(QMainWindow):
         self.layout_pozycja_kamery = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.layout_pozycja_kamery.setContentsMargins(0, 0, 0, 0)
         self.layout_pozycja_kamery.setObjectName("layout_pozycja_kamery")
-        self.kamera_x = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+
+
+        self.kamera_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_x.setObjectName("kamera_x")
+        self.kamera_x.textChanged.connect(self.on_xyz_changed)
         self.layout_pozycja_kamery.addWidget(self.kamera_x)
-        self.kamera_y = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+
+        self.kamera_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_y.setObjectName("kamera_y")
+        self.kamera_y.textChanged.connect(self.on_xyz_changed)
         self.layout_pozycja_kamery.addWidget(self.kamera_y)
-        self.kamera_z = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+        
+        self.kamera_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_z.setObjectName("kamera_z")
+        self.kamera_z.textChanged.connect(self.on_xyz_changed)
         self.layout_pozycja_kamery.addWidget(self.kamera_z)
+
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(10, 150, 171, 31))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
         self.layout_kierunek_patrzenia = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.layout_kierunek_patrzenia.setContentsMargins(0, 0, 0, 0)
         self.layout_kierunek_patrzenia.setObjectName("layout_kierunek_patrzenia")
-        self.patrzenie_x = QtWidgets.QTextEdit(self.horizontalLayoutWidget_2)
+        self.patrzenie_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_x.setObjectName("patrzenie_x")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_x)
-        self.patrzenie_y = QtWidgets.QTextEdit(self.horizontalLayoutWidget_2)
+        self.patrzenie_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_y.setObjectName("patrzenie_y")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_y)
-        self.patrzenie_z = QtWidgets.QTextEdit(self.horizontalLayoutWidget_2)
+        self.patrzenie_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_z.setObjectName("patrzenie_z")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_z)
         self.label_kierunek_patrzenia = QtWidgets.QLabel(self.centralwidget)
@@ -67,13 +75,13 @@ class Ui_MainWindow(QMainWindow):
         self.layout_oswietlenie = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.layout_oswietlenie.setContentsMargins(0, 0, 0, 0)
         self.layout_oswietlenie.setObjectName("layout_oswietlenie")
-        self.swiatlo_x = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
+        self.swiatlo_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
         self.swiatlo_x.setObjectName("swiatlo_x")
         self.layout_oswietlenie.addWidget(self.swiatlo_x)
-        self.swiatlo_y = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
+        self.swiatlo_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
         self.swiatlo_y.setObjectName("swiatlo_y")
         self.layout_oswietlenie.addWidget(self.swiatlo_y)
-        self.swiatlo_z = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
+        self.swiatlo_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
         self.swiatlo_z.setObjectName("swiatlo_z")
         self.layout_oswietlenie.addWidget(self.swiatlo_z)
 
@@ -101,6 +109,25 @@ class Ui_MainWindow(QMainWindow):
         QtCore.QMetaObject.connectSlotsByName(self)
         self.show()
 
+    def on_xyz_changed(self):
+        if self.kamera_x.text() == '':
+            kamera_x = 0
+        else:
+            kamera_x = int(self.kamera_x.text())
+
+        if self.kamera_y.text() == '':
+            kamera_y = 0
+        else:
+            kamera_y = int(self.kamera_y.text())
+
+        if self.kamera_z.text() == '':
+            kamera_z = 0
+        else:
+            kamera_z = int(self.kamera_z.text())
+
+        self.widget_modelu.przesun(kamera_x, kamera_y, kamera_z)
+        self.widget_modelu.update()
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Prezentacja Modelu 3D"))
@@ -119,6 +146,6 @@ if __name__ == '__main__':
     okno = Ui_MainWindow()
     okno.setupUi()
     okno.widget_modelu.wstaw_obiekt(file_loader())
-    okno.widget_modelu.przesun(0, -5, 10)
+    okno.widget_modelu.przesun(0, 0, 100)
     okno.widget_modelu.obroc(0, 45, 0)
     sys.exit(app.exec_())
