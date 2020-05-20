@@ -90,13 +90,17 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.setAutoFillBackground(False)
         self.widget_modelu.setObjectName("widget_modelu")
 
-        self.zoom_slider = QtWidgets.QSlider(self.centralwidget)
-        self.zoom_slider.setGeometry(QtCore.QRect(260, 420, 161, 31))
-        self.zoom_slider.setOrientation(QtCore.Qt.Horizontal)
-        self.zoom_slider.setObjectName("zoom_slider")
-        self.label_zoom = QtWidgets.QLabel(self.centralwidget)
-        self.label_zoom.setGeometry(QtCore.QRect(320, 400, 67, 17))
-        self.label_zoom.setObjectName("label_zoom")
+        self.rotate_slider = QtWidgets.QSlider(self.centralwidget)
+        self.rotate_slider.setGeometry(QtCore.QRect(260, 420, 161, 31))
+        self.rotate_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.rotate_slider.setObjectName("rotate_slider")
+        self.rotate_slider.setMinimum(0)
+        self.rotate_slider.setMaximum(360)
+        self.rotate_slider.valueChanged.connect(self.on_rotate_changed)
+
+        self.label_rotate = QtWidgets.QLabel(self.centralwidget)
+        self.label_rotate.setGeometry(QtCore.QRect(320, 400, 67, 17))
+        self.label_rotate.setObjectName("label_rotate")
         self.button_wczytaj_obiekt = QtWidgets.QPushButton(self.centralwidget)
         self.button_wczytaj_obiekt.setGeometry(QtCore.QRect(550, 420, 111, 25))
         self.button_wczytaj_obiekt.setObjectName("button_wczytaj_obiekt")
@@ -108,6 +112,12 @@ class Ui_MainWindow(QMainWindow):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
         self.show()
+
+    def on_rotate_changed(self):
+        obrot = self.rotate_slider.value()
+        self.widget_modelu.obroc(0, obrot, 0)
+        self.widget_modelu.update()
+
 
     def on_xyz_changed(self):
         if self.kamera_x.text() == '':
@@ -136,7 +146,7 @@ class Ui_MainWindow(QMainWindow):
         self.eliminacja_powierzchni_CB.setText(_translate("MainWindow", "Eliminacja Powierzchni \n"
 "zasłoniętych"))
         self.oswietlenie_CB.setText(_translate("MainWindow", "Oświetlenie"))
-        self.label_zoom.setText(_translate("MainWindow", "Zoom"))
+        self.label_rotate.setText(_translate("MainWindow", "rotate"))
         self.button_wczytaj_obiekt.setText(_translate("MainWindow", "Wczytaj Obiekt"))
 
 if __name__ == '__main__':
