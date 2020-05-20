@@ -17,9 +17,9 @@ def file_loader():
                 a[i] = a[i].split("/")[0]
                 index_wierzcholka = int(a[i]) - 1
                 polygon.append(wierzcholki[index_wierzcholka])
-            polygon_list.append(polygon)
-    print(polygon_list)        
+            polygon_list.append(polygon)       
     f.close()
-file_loader()
+    return polygon_list
+
 
 

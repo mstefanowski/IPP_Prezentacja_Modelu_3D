@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from widget_rysowania import Widget_rysowania
+from file_loader import file_loader
 
 
 class Ui_MainWindow(QMainWindow):
@@ -117,4 +118,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     okno = Ui_MainWindow()
     okno.setupUi()
+    okno.widget_modelu.wstaw_obiekt(file_loader())
     sys.exit(app.exec_())
