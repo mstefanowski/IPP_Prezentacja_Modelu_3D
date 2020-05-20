@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
-
+from widget_rysowania import Widget_rysowania
 
 
 class Ui_MainWindow(QMainWindow):
@@ -75,10 +75,12 @@ class Ui_MainWindow(QMainWindow):
         self.swiatlo_z = QtWidgets.QTextEdit(self.horizontalLayoutWidget_3)
         self.swiatlo_z.setObjectName("swiatlo_z")
         self.layout_oswietlenie.addWidget(self.swiatlo_z)
-        self.widget_modelu = QtWidgets.QWidget(self.centralwidget)
+
+        self.widget_modelu = Widget_rysowania(self.centralwidget)
         self.widget_modelu.setGeometry(QtCore.QRect(259, 19, 431, 361))
         self.widget_modelu.setAutoFillBackground(False)
         self.widget_modelu.setObjectName("widget_modelu")
+
         self.zoom_slider = QtWidgets.QSlider(self.centralwidget)
         self.zoom_slider.setGeometry(QtCore.QRect(260, 420, 161, 31))
         self.zoom_slider.setOrientation(QtCore.Qt.Horizontal)
