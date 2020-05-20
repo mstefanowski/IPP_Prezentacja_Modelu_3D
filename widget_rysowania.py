@@ -22,8 +22,9 @@ class Widget_rysowania(QWidget):
         vektor = [element / vektor[-1] for element in vektor]
         return vektor
 
-    def narysuj_polygon(self, polygon):
-        d=1
+    def narysuj_polygon(self, polygon, painter):
+        d=80
+        QPoint_list = []
         macierz_rzut = [
             [1, 0, 0, 0],
             [0, 1, 0, 0], 
@@ -31,28 +32,18 @@ class Widget_rysowania(QWidget):
             [0, 0, 1/d, 0]]
         for punkt in polygon:
             x = punkt + [1]
-            print(self.normalizuj(self.matrix_vector_mult(macierz_rzut, x)))
+            Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_rzut, x))
+            QPoint_list.append(QPoint(Zrzutowany_Punkt[0], Zrzutowany_Punkt[1]))
+        print(QPoint_list)
+        painter.drawPolygon(QPolygon(QPoint_list))
 
     def paintEvent(self, event):
-        # painter = QPainter(self)
-        # painter.setPen(Qt.red)
+        painter = QPainter(self)
+        painter.setPen(Qt.black)
 
-        # painter.drawLine(10,10,100,140)
-
-        # painter.setPen(Qt.blue)
-        # painter.drawRect(120,10,80,80)
-
-        # rectf = QRectF(230.0,10.0,80.0,80.0)
-        # painter.drawRoundedRect(rectf,20,20)
-
-        # p1 = [QPoint(10,100),QPoint(220,110),QPoint(220,190)]
-        # painter.drawPolyline(QPolygon(p1))
-
-        # p2 = [QPoint(120,110),QPoint(220,110),QPoint(220,190)]
-        # painter.drawPolygon(QPolygon(p2))
 
         for polygon in self.obiekt3D:
-            self.narysuj_polygon(polygon)
+            self.narysuj_polygon(polygon, painter)
 
     
         
