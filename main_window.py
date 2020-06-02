@@ -85,11 +85,13 @@ class Ui_MainWindow(QMainWindow):
         self.swiatlo_z.setObjectName("swiatlo_z")
         self.layout_oswietlenie.addWidget(self.swiatlo_z)
 
+        #widget w którym rysujemy model
         self.widget_modelu = Widget_rysowania(self.centralwidget)
         self.widget_modelu.setGeometry(QtCore.QRect(259, 19, 431, 361))
         self.widget_modelu.setAutoFillBackground(False)
         self.widget_modelu.setObjectName("widget_modelu")
 
+        #slider obrotu
         self.rotate_slider = QtWidgets.QSlider(self.centralwidget)
         self.rotate_slider.setGeometry(QtCore.QRect(260, 420, 161, 31))
         self.rotate_slider.setOrientation(QtCore.Qt.Horizontal)
