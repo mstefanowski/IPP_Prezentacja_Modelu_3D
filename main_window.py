@@ -56,15 +56,25 @@ class Ui_MainWindow(QMainWindow):
         self.layout_kierunek_patrzenia = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.layout_kierunek_patrzenia.setContentsMargins(0, 0, 0, 0)
         self.layout_kierunek_patrzenia.setObjectName("layout_kierunek_patrzenia")
+
         self.patrzenie_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_x.setObjectName("patrzenie_x")
+        self.patrzenie_x.setText("0")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_x)
+        self.patrzenie_x.textChanged.connect(self.on_rotate_changed)
+
         self.patrzenie_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_y.setObjectName("patrzenie_y")
+        self.patrzenie_y.setText("0")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_y)
+        self.patrzenie_y.textChanged.connect(self.on_rotate_changed)
+
         self.patrzenie_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_z.setObjectName("patrzenie_z")
+        self.patrzenie_z.setText("0")
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_z)
+        self.patrzenie_z.textChanged.connect(self.on_rotate_changed)
+
         self.label_kierunek_patrzenia = QtWidgets.QLabel(self.centralwidget)
         self.label_kierunek_patrzenia.setGeometry(QtCore.QRect(30, 120, 131, 17))
         self.label_kierunek_patrzenia.setObjectName("label_kierunek_patrzenia")
@@ -96,7 +106,7 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.setAutoFillBackground(False)
         self.widget_modelu.setObjectName("widget_modelu")
 
-        self.widget_modelu.set_fields(self.kamera_x, self.kamera_y, self.kamera_z)
+        self.widget_modelu.set_fields(self.kamera_x, self.kamera_y, self.kamera_z, self.patrzenie_x, self.patrzenie_y, self.patrzenie_z)
 
 
         #slider obrotu
@@ -106,7 +116,7 @@ class Ui_MainWindow(QMainWindow):
         self.rotate_slider.setObjectName("rotate_slider")
         self.rotate_slider.setMinimum(0)
         self.rotate_slider.setMaximum(360)
-        self.rotate_slider.valueChanged.connect(self.on_rotate_changed)
+        self.rotate_slider.valueChanged.connect(self.on_rotate_slide)
 
         self.label_rotate = QtWidgets.QLabel(self.centralwidget)
         self.label_rotate.setGeometry(QtCore.QRect(320, 400, 67, 17))
@@ -128,13 +138,29 @@ class Ui_MainWindow(QMainWindow):
         self.show()
 
     def on_rotate_changed(self):
-        obrot = self.rotate_slider.value()
-        self.widget_modelu.obroc(0, obrot, 0)
+        if self.patrzenie_x.text() == '':
+            patrzenie_x = 0
+        else:
+            patrzenie_x = int(self.patrzenie_x.text())
+
+        if self.patrzenie_y.text() == '':
+            patrzenie_y = 0
+        else:
+            patrzenie_y = int(self.patrzenie_y.text())
+
+        if self.patrzenie_z.text() == '':
+            patrzenie_z = 0
+        else:
+            patrzenie_z = int(self.patrzenie_z.text())
+
+        self.widget_modelu.obroc(patrzenie_x, patrzenie_y, patrzenie_z)
         self.widget_modelu.update()
 
+    def on_rotate_slide(self):
+        obrot = self.rotate_slider.value()
+        self.patrzenie_z.setText(str(obrot))
 
     def on_xyz_changed(self):
-        print("on xyz changed")
         if self.kamera_x.text() == '':
             kamera_x = 0
         else:
@@ -162,11 +188,11 @@ class Ui_MainWindow(QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Prezentacja Modelu 3D"))
         self.label_pozycja_kamery.setText(_translate("MainWindow", "Przesunięcie"))
-        self.label_kierunek_patrzenia.setText(_translate("MainWindow", "Kierunek Patrzenia"))
+        self.label_kierunek_patrzenia.setText(_translate("MainWindow", "Obrót"))
         self.eliminacja_powierzchni_CB.setText(_translate("MainWindow", "Eliminacja Powierzchni \n"
 "zasłoniętych"))
         self.oswietlenie_CB.setText(_translate("MainWindow", "Oświetlenie"))
-        self.label_rotate.setText(_translate("MainWindow", "rotate"))
+        self.label_rotate.setText(_translate("MainWindow", "rotate z"))
         self.button_wczytaj_obiekt.setText(_translate("MainWindow", "Wczytaj Obiekt"))
 
 if __name__ == '__main__':

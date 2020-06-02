@@ -10,10 +10,14 @@ class Widget_rysowania(QWidget):
         self.przesuniecie_y = 0 
         self.przesuniecie_z = 0
 
-    def set_fields(self, x, y, z):
+    def set_fields(self, x, y, z, rotx, roty, rotz):
         self.LineEdit_position_X = x
         self.LineEdit_position_Y = y
         self.LineEdit_position_Z = z
+        
+        self.rotLineEdit_position_X = rotx
+        self.rotLineEdit_position_Y = roty
+        self.rotLineEdit_position_Z = rotz
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -36,6 +40,8 @@ class Widget_rysowania(QWidget):
             self.rotationY = event.globalY() - self.posY
             self.rotationX = event.globalX() - self.posX
             self.obroc(-self.rotationY, self.rotationX, 0)
+            self.rotLineEdit_position_X.setText(str(-self.rotationY))
+            self.rotLineEdit_position_Y.setText(str(self.rotationX))
             self.update()
 
     
