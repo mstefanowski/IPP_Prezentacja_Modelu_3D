@@ -39,11 +39,15 @@ class Widget_rysowania(QWidget):
         if event.buttons() == Qt.RightButton:
             self.rotationY = event.globalY() - self.posY
             self.rotationX = event.globalX() - self.posX
-            self.obroc(-self.rotationY, self.rotationX, 0)
+            self.obroc(-self.rotationY, self.rotationX, self.obrot_z)
             self.rotLineEdit_position_X.setText(str(-self.rotationY))
             self.rotLineEdit_position_Y.setText(str(self.rotationX))
             self.update()
 
+    def wheelEvent(self, event):
+        self.numDegrees = event.angleDelta() / 8
+        self.numSteps = self.numDegrees / 15
+        self.LineEdit_position_Z.setText(str(self.numSteps.y()+self.przesuniecie_z))
     
     def matrix_vector_mult(self, m, v):
         vektor = []
@@ -131,7 +135,7 @@ class Widget_rysowania(QWidget):
         for polygon in self.obiekt3D:
             self.narysuj_polygon(polygon, painter)
 
-    
+        
         
 
     def wstaw_obiekt(self, obiekt3D):
@@ -141,8 +145,6 @@ class Widget_rysowania(QWidget):
         self.przesuniecie_x = x 
         self.przesuniecie_y = y 
         self.przesuniecie_z = z
-        print("x: ", self.przesuniecie_x, " y: ", self.przesuniecie_y, " z: ", self.przesuniecie_z)
-
 
     def obroc(self, x, y, z):
         self.obrot_x = x

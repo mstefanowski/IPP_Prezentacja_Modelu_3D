@@ -33,19 +33,19 @@ class Ui_MainWindow(QMainWindow):
         self.kamera_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_x.setObjectName("kamera_x")
         self.kamera_x.textChanged.connect(self.on_xyz_changed)
-        self.kamera_x.setText("0")
+       
         self.layout_pozycja_kamery.addWidget(self.kamera_x)
 
         self.kamera_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_y.setObjectName("kamera_y")
         self.kamera_y.textChanged.connect(self.on_xyz_changed)
-        self.kamera_y.setText("0")
+        
         self.layout_pozycja_kamery.addWidget(self.kamera_y)
         
         self.kamera_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_z.setObjectName("kamera_z")
         self.kamera_z.textChanged.connect(self.on_xyz_changed)
-        self.kamera_z.setText("0")
+        
         self.layout_pozycja_kamery.addWidget(self.kamera_z)
 
         
@@ -59,19 +59,19 @@ class Ui_MainWindow(QMainWindow):
 
         self.patrzenie_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_x.setObjectName("patrzenie_x")
-        self.patrzenie_x.setText("0")
+       
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_x)
         self.patrzenie_x.textChanged.connect(self.on_rotate_changed)
 
         self.patrzenie_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_y.setObjectName("patrzenie_y")
-        self.patrzenie_y.setText("0")
+        
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_y)
         self.patrzenie_y.textChanged.connect(self.on_rotate_changed)
 
         self.patrzenie_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.patrzenie_z.setObjectName("patrzenie_z")
-        self.patrzenie_z.setText("0")
+    
         self.layout_kierunek_patrzenia.addWidget(self.patrzenie_z)
         self.patrzenie_z.textChanged.connect(self.on_rotate_changed)
 
@@ -135,6 +135,14 @@ class Ui_MainWindow(QMainWindow):
 
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
+
+        self.patrzenie_z.setText("0")
+        self.patrzenie_y.setText("0")
+        self.patrzenie_x.setText("0")
+        
+        self.kamera_z.setText("0")
+        self.kamera_y.setText("0")
+        self.kamera_x.setText("0")
         self.show()
 
     def on_rotate_changed(self):
@@ -192,7 +200,7 @@ class Ui_MainWindow(QMainWindow):
         self.eliminacja_powierzchni_CB.setText(_translate("MainWindow", "Eliminacja Powierzchni \n"
 "zasłoniętych"))
         self.oswietlenie_CB.setText(_translate("MainWindow", "Oświetlenie"))
-        self.label_rotate.setText(_translate("MainWindow", "rotate z"))
+        self.label_rotate.setText(_translate("MainWindow", "rotate"))
         self.button_wczytaj_obiekt.setText(_translate("MainWindow", "Wczytaj Obiekt"))
 
 if __name__ == '__main__':
@@ -202,6 +210,6 @@ if __name__ == '__main__':
     okno = Ui_MainWindow()
     okno.setupUi()
     okno.widget_modelu.wstaw_obiekt(file_loader("minecraft-steve.obj"))
-    okno.widget_modelu.przesun(0, 0, 100)
-    okno.widget_modelu.obroc(0, 45, 0)
+    okno.widget_modelu.przesun(0,0,0)
+    okno.widget_modelu.obroc(0, 0, 0)
     sys.exit(app.exec_())
