@@ -57,3 +57,23 @@ Okno główne zawiera następujące elementy:
 W ramach poszerzenia wiedzy w grafice komputerowej zacząłem się uczyć z kursu Grafiki komputerowej i wizualizacji udostępnionego przez Wydział Matematyki, Informatyki i Mechaniki Uniwersytetu Warszawskiego Autorstwa Dariusza Sawickiego.
 
 Kolejnym krokiem w tworzeniu projektu będzie załadowanie obrazka 3D z pliku i wyświetlenie samych jego krawędzi bez powierzchni. W następnych krokach dodam możliwość przesuwania i obracania obrazka, a ostatnimi elementami będzie wyświetlanie powierzchni i dodanie oświetlenia.
+
+# RAPORT NR 3
+
+Maciej Stefanowski 
+
+#
+
+W ramach projektu udało mi się zrobić część rzeczy założonych w pierwszym raporcie.
+
+Najważniejszą rzeczą jest rysowanie obiektów 3D. Był to główny punkt mojego projektu i cała reszta była oparta o to.
+
+Udało mi się zaimplementować wczytywanie obiektów z pliku. Pliki, których używałem podczas prezentacji były pobranymi z internetu obiektami 3D stworzonymi w blenderze, zapisane w pliku ".obj". Jeden z obiektów stworzyłem sam dla lepszego zrozumienia konstrukcji.
+
+Zamiast zmiany położenia i obracania kamery zdecydowałem, że lepszym sposobem jest obracanie i zmiana położenia obiektu. Robie to za pomocą macierzy przekształceń. Do obracania korzystam z suwaka, który wcześniej miał być do zoomowania.
+
+Zrezygnowałem z przybliżania obiektu, gdyż można przybliżyć obiekt za pomocą zmiany jego położenia.
+
+#
+
+Do ukończenia wszystkich założonych rzeczy pozostało mi usunięcie powierzchni zasłoniętych, ustawienia światła oraz obracanie obiektu myszką. Myślę, że to ostatnie jest najłatwiejsze z podanych, gdyż mam już zaimplementowane macierze przekształceń i wystarczy pobrać wartości z kliknięcia i przesunięcia myszką. 
