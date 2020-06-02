@@ -33,17 +33,22 @@ class Ui_MainWindow(QMainWindow):
         self.kamera_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_x.setObjectName("kamera_x")
         self.kamera_x.textChanged.connect(self.on_xyz_changed)
+        self.kamera_x.setText("0")
         self.layout_pozycja_kamery.addWidget(self.kamera_x)
 
         self.kamera_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_y.setObjectName("kamera_y")
         self.kamera_y.textChanged.connect(self.on_xyz_changed)
+        self.kamera_y.setText("0")
         self.layout_pozycja_kamery.addWidget(self.kamera_y)
         
         self.kamera_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.kamera_z.setObjectName("kamera_z")
         self.kamera_z.textChanged.connect(self.on_xyz_changed)
+        self.kamera_z.setText("0")
         self.layout_pozycja_kamery.addWidget(self.kamera_z)
+
+        
 
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(10, 150, 171, 31))
@@ -91,6 +96,9 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.setAutoFillBackground(False)
         self.widget_modelu.setObjectName("widget_modelu")
 
+        self.widget_modelu.set_fields(self.kamera_x, self.kamera_y, self.kamera_z)
+
+
         #slider obrotu
         self.rotate_slider = QtWidgets.QSlider(self.centralwidget)
         self.rotate_slider.setGeometry(QtCore.QRect(260, 420, 161, 31))
@@ -126,6 +134,7 @@ class Ui_MainWindow(QMainWindow):
 
 
     def on_xyz_changed(self):
+        print("on xyz changed")
         if self.kamera_x.text() == '':
             kamera_x = 0
         else:
@@ -152,7 +161,7 @@ class Ui_MainWindow(QMainWindow):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Prezentacja Modelu 3D"))
-        self.label_pozycja_kamery.setText(_translate("MainWindow", "Pozycja Kamery"))
+        self.label_pozycja_kamery.setText(_translate("MainWindow", "Przesunięcie"))
         self.label_kierunek_patrzenia.setText(_translate("MainWindow", "Kierunek Patrzenia"))
         self.eliminacja_powierzchni_CB.setText(_translate("MainWindow", "Eliminacja Powierzchni \n"
 "zasłoniętych"))
