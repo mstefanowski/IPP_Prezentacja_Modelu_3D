@@ -123,18 +123,19 @@ class Widget_rysowania(QWidget):
 
         for punkt in polygon:
             x = punkt + [1]
-            Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
-            QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
+            if self.matrix_vector_mult(macierz_przeksztalcen, x)[2] > 0:
+                Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
+                QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
         painter.drawPolygon(QPolygon(QPoint_list))
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setPen(Qt.black)
+        painter.setBrush(Qt.red)
 
 
         for polygon in self.obiekt3D:
             self.narysuj_polygon(polygon, painter)
-
         
         
 
