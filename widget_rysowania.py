@@ -111,9 +111,12 @@ class Widget_rysowania(QWidget):
                 [0, 0, 1, 0], 
                 [0, 0, 0, 1]]
 
-    def narysuj_polygon(self, polygon, painter):
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setPen(Qt.black)
+        #painter.setBrush(Qt.black)
+
         d=-70
-        QPoint_list = []
 
         macierz_przeksztalcen = self.stworz_macierz_rzutu(d)
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_przesuniecia(self.przesuniecie_x, self.przesuniecie_y, self.przesuniecie_z))
@@ -121,22 +124,15 @@ class Widget_rysowania(QWidget):
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OX(math.radians(self.obrot_x))) 
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OZ(math.radians(self.obrot_z))) 
 
-        for punkt in polygon:
-            x = punkt + [1]
-            if self.matrix_vector_mult(macierz_przeksztalcen, x)[2] > 0:
-                Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
-                QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
-        painter.drawPolygon(QPolygon(QPoint_list))
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setPen(Qt.black)
-        painter.setBrush(Qt.red)
-
-
         for polygon in self.obiekt3D:
-            self.narysuj_polygon(polygon, painter)
-        
+            QPoint_list = []
+            for punkt in polygon:
+                x = punkt + [1]
+                if self.matrix_vector_mult(macierz_przeksztalcen, x)[2] > 0:
+                    Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
+                    QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
+            painter.drawPolygon(QPolygon(QPoint_list))
+        print(QPoint_list)
         
 
     def wstaw_obiekt(self, obiekt3D):
