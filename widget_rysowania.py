@@ -114,7 +114,7 @@ class Widget_rysowania(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setPen(Qt.black)
-        #painter.setBrush(Qt.black)
+        painter.setBrush(Qt.red)
 
         d=-70
 
@@ -124,16 +124,46 @@ class Widget_rysowania(QWidget):
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OX(math.radians(self.obrot_x))) 
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OZ(math.radians(self.obrot_z))) 
 
-        for polygon in self.obiekt3D:
-            QPoint_list = []
+        lista_polygonow = self.obiekt3D
+
+        lista_przeksztalconych_polygonow = []
+        for polygon in lista_polygonow:
+            przeksztalcony_polygon = []
             for punkt in polygon:
                 x = punkt + [1]
-                if self.matrix_vector_mult(macierz_przeksztalcen, x)[2] > 0:
-                    Zrzutowany_Punkt = self.normalizuj(self.matrix_vector_mult(macierz_przeksztalcen, x))
-                    QPoint_list.append(QPoint(Zrzutowany_Punkt[0] + self.width()/2, Zrzutowany_Punkt[1] + self.height()/2 ))
-            painter.drawPolygon(QPolygon(QPoint_list))
-        print(QPoint_list)
+                Zrzutowany_Punkt = self.matrix_vector_mult(macierz_przeksztalcen, x)
+                przeksztalcony_polygon.append(Zrzutowany_Punkt)
+            lista_przeksztalconych_polygonow.append(przeksztalcony_polygon)
+
         
+        posortowana_lista_polygonow = sorted(lista_przeksztalconych_polygonow, key=self.wybierz_klucz, reverse=True)
+
+        print("\n\n\n\n\n")
+
+        for polygon in posortowana_lista_polygonow:
+            QPoint_list = []
+
+            text = ""
+            for punkt in polygon:
+                for x in punkt:
+                    text += " {:+.2f}".format(x)
+                text += ";"
+            print(text)
+
+            for punkt in polygon:
+                #if punkt[2] > 0:
+                punkt = self.normalizuj(punkt)
+                QPoint_list.append(QPoint(float(punkt[0]) + self.width()/2, float(punkt[1]) + self.height()/2 ))
+            painter.drawPolygon(QPolygon(QPoint_list))
+        
+
+    def wybierz_klucz(self, polygon):
+        x = polygon[0][-2]
+        for z in polygon:
+            if z[-2] > x:
+                x = z[-2]
+        return x
+
 
     def wstaw_obiekt(self, obiekt3D):
         self.obiekt3D = obiekt3D

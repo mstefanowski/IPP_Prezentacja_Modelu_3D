@@ -209,7 +209,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     okno = Ui_MainWindow()
     okno.setupUi()
-    okno.widget_modelu.wstaw_obiekt(file_loader("minecraft-steve.obj"))
+    okno.widget_modelu.wstaw_obiekt(file_loader("szescian.obj"))
     okno.widget_modelu.przesun(0,0,0)
     okno.widget_modelu.obroc(0, 0, 0)
     sys.exit(app.exec_())
