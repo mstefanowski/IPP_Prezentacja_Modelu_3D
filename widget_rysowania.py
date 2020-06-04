@@ -139,18 +139,9 @@ class Widget_rysowania(QWidget):
         
         posortowana_lista_polygonow = sorted(lista_przeksztalconych_polygonow, key=self.wybierz_klucz, reverse=True)
 
-        print("\n\n\n\n\n")
 
         for polygon in posortowana_lista_polygonow:
             QPoint_list = []
-
-            text = ""
-            for punkt in polygon:
-                for x in punkt:
-                    text += " {:+.2f}".format(x)
-                text += ";"
-            print(text)
-
             for punkt in polygon:
                 if punkt[2] > 0:
                     punkt = self.normalizuj(punkt)
