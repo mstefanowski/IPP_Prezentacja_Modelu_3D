@@ -10,6 +10,7 @@ class Widget_rysowania(QWidget):
         self.przesuniecie_y = 0 
         self.przesuniecie_z = 0
         self.d = -70
+        self.rysuj_powierzchnie = False
 
     def set_fields(self, x, y, z, rotx, roty, rotz):
         self.LineEdit_position_X = x
@@ -115,7 +116,8 @@ class Widget_rysowania(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setPen(Qt.black)
-        painter.setBrush(Qt.red)
+        if self.rysuj_powierzchnie:
+            painter.setBrush(Qt.red)
 
         macierz_przeksztalcen = self.stworz_macierz_rzutu(self.d)
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_przesuniecia(self.przesuniecie_x, self.przesuniecie_y, self.przesuniecie_z))
@@ -166,7 +168,7 @@ class Widget_rysowania(QWidget):
                 max = self.odl_od_obs(z, self.d)
             if z[-2] > max_z:
                 max_z = z[-2]
-        return (max_z, max)
+        return max
 
 
     def wstaw_obiekt(self, obiekt3D):

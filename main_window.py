@@ -78,28 +78,10 @@ class Ui_MainWindow(QMainWindow):
         self.label_kierunek_patrzenia = QtWidgets.QLabel(self.centralwidget)
         self.label_kierunek_patrzenia.setGeometry(QtCore.QRect(30, 120, 131, 17))
         self.label_kierunek_patrzenia.setObjectName("label_kierunek_patrzenia")
+
         self.eliminacja_powierzchni_CB = QtWidgets.QCheckBox(self.centralwidget)
         self.eliminacja_powierzchni_CB.setGeometry(QtCore.QRect(10, 200, 181, 41))
         self.eliminacja_powierzchni_CB.setObjectName("eliminacja_powierzchni_CB")
-        self.oswietlenie_CB = QtWidgets.QCheckBox(self.centralwidget)
-        self.oswietlenie_CB.setGeometry(QtCore.QRect(10, 270, 101, 23))
-        self.oswietlenie_CB.setObjectName("oswietlenie_CB")
-        self.horizontalLayoutWidget_3 = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(10, 310, 171, 31))
-        self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
-        self.layout_oswietlenie = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
-        self.layout_oswietlenie.setContentsMargins(0, 0, 0, 0)
-        self.layout_oswietlenie.setObjectName("layout_oswietlenie")
-        self.swiatlo_x = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
-        self.swiatlo_x.setObjectName("swiatlo_x")
-        self.layout_oswietlenie.addWidget(self.swiatlo_x)
-        self.swiatlo_y = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
-        self.swiatlo_y.setObjectName("swiatlo_y")
-        self.layout_oswietlenie.addWidget(self.swiatlo_y)
-        self.swiatlo_z = QtWidgets.QLineEdit(self.horizontalLayoutWidget_3)
-        self.swiatlo_z.setObjectName("swiatlo_z")
-        self.layout_oswietlenie.addWidget(self.swiatlo_z)
-
         #widget w którym rysujemy model
         self.widget_modelu = Widget_rysowania(self.centralwidget)
         self.widget_modelu.setGeometry(QtCore.QRect(259, 19, 431, 361))
@@ -107,6 +89,7 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.setObjectName("widget_modelu")
 
         self.widget_modelu.set_fields(self.kamera_x, self.kamera_y, self.kamera_z, self.patrzenie_x, self.patrzenie_y, self.patrzenie_z)
+        self.eliminacja_powierzchni_CB.stateChanged.connect(self.button_powierzchnia)
 
 
         #slider obrotu
@@ -192,6 +175,10 @@ class Ui_MainWindow(QMainWindow):
         self.widget_modelu.wstaw_obiekt(file_loader(otworz_plik[0]))
         self.widget_modelu.update()
 
+    def button_powierzchnia(self):
+        self.widget_modelu.rysuj_powierzchnie = self.eliminacja_powierzchni_CB.isChecked()
+        self.widget_modelu.update()
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Prezentacja Modelu 3D"))
@@ -199,7 +186,6 @@ class Ui_MainWindow(QMainWindow):
         self.label_kierunek_patrzenia.setText(_translate("MainWindow", "Obrót"))
         self.eliminacja_powierzchni_CB.setText(_translate("MainWindow", "Eliminacja Powierzchni \n"
 "zasłoniętych"))
-        self.oswietlenie_CB.setText(_translate("MainWindow", "Oświetlenie"))
         self.label_rotate.setText(_translate("MainWindow", "rotate"))
         self.button_wczytaj_obiekt.setText(_translate("MainWindow", "Wczytaj Obiekt"))
 
@@ -209,7 +195,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     okno = Ui_MainWindow()
     okno.setupUi()
-    okno.widget_modelu.wstaw_obiekt(file_loader("szescian.obj"))
+    okno.widget_modelu.wstaw_obiekt(file_loader("low-poly-fox-by-pixelmannen.obj"))
     okno.widget_modelu.przesun(0,0,0)
     okno.widget_modelu.obroc(0, 0, 0)
     sys.exit(app.exec_())
