@@ -9,6 +9,7 @@ class Widget_rysowania(QWidget):
         self.przesuniecie_x = 0 
         self.przesuniecie_y = 0 
         self.przesuniecie_z = 0
+        self.d = -70
 
     def set_fields(self, x, y, z, rotx, roty, rotz):
         self.LineEdit_position_X = x
@@ -116,9 +117,7 @@ class Widget_rysowania(QWidget):
         painter.setPen(Qt.black)
         painter.setBrush(Qt.red)
 
-        d=-70
-
-        macierz_przeksztalcen = self.stworz_macierz_rzutu(d)
+        macierz_przeksztalcen = self.stworz_macierz_rzutu(self.d)
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_przesuniecia(self.przesuniecie_x, self.przesuniecie_y, self.przesuniecie_z))
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OY(math.radians(self.obrot_y)))
         macierz_przeksztalcen = self.matmult(macierz_przeksztalcen, self.stworz_macierz_obrotu_OX(math.radians(self.obrot_x))) 
@@ -151,18 +150,20 @@ class Widget_rysowania(QWidget):
             print(text)
 
             for punkt in polygon:
-                #if punkt[2] > 0:
-                punkt = self.normalizuj(punkt)
-                QPoint_list.append(QPoint(float(punkt[0]) + self.width()/2, float(punkt[1]) + self.height()/2 ))
+                if punkt[2] > 0:
+                    punkt = self.normalizuj(punkt)
+                    QPoint_list.append(QPoint(float(punkt[0]) + self.width()/2, float(punkt[1]) + self.height()/2 ))
             painter.drawPolygon(QPolygon(QPoint_list))
         
+    def odl_od_obs(self, punkt, d):
+        return math.sqrt((punkt[0])**2 + (punkt[1])**2 + (punkt[2]-d)**2)  
 
     def wybierz_klucz(self, polygon):
-        x = polygon[0][-2]
+        max = self.odl_od_obs(polygon[0], self.d)
         for z in polygon:
-            if z[-2] > x:
-                x = z[-2]
-        return x
+            if self.odl_od_obs(z, self.d) > max:
+                max = self.odl_od_obs(z, self.d)
+        return max
 
 
     def wstaw_obiekt(self, obiekt3D):
