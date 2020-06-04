@@ -156,14 +156,17 @@ class Widget_rysowania(QWidget):
             painter.drawPolygon(QPolygon(QPoint_list))
         
     def odl_od_obs(self, punkt, d):
-        return math.sqrt((punkt[0])**2 + (punkt[1])**2 + (punkt[2]-d)**2)  
+        return math.sqrt((punkt[0])**2 + (punkt[1])**2 + (punkt[2]-d)**2) 
 
     def wybierz_klucz(self, polygon):
         max = self.odl_od_obs(polygon[0], self.d)
+        max_z = polygon[0][-2]
         for z in polygon:
             if self.odl_od_obs(z, self.d) > max:
                 max = self.odl_od_obs(z, self.d)
-        return max
+            if z[-2] > max_z:
+                max_z = z[-2]
+        return (max_z, max)
 
 
     def wstaw_obiekt(self, obiekt3D):
