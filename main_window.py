@@ -129,17 +129,17 @@ class Ui_MainWindow(QMainWindow):
         self.show()
 
     def on_rotate_changed(self):
-        if self.patrzenie_x.text() == '':
+        if self.patrzenie_x.text() == '' or self.patrzenie_x.text() == '-':
             patrzenie_x = 0
         else:
             patrzenie_x = int(self.patrzenie_x.text())
 
-        if self.patrzenie_y.text() == '':
+        if self.patrzenie_y.text() == '' or self.patrzenie_y.text() == '-':
             patrzenie_y = 0
         else:
             patrzenie_y = int(self.patrzenie_y.text())
 
-        if self.patrzenie_z.text() == '':
+        if self.patrzenie_z.text() == '' or self.patrzenie_z.text() == '-':
             patrzenie_z = 0
         else:
             patrzenie_z = int(self.patrzenie_z.text())
@@ -152,17 +152,17 @@ class Ui_MainWindow(QMainWindow):
         self.patrzenie_z.setText(str(obrot))
 
     def on_xyz_changed(self):
-        if self.kamera_x.text() == '':
+        if self.kamera_x.text() == '' or self.kamera_x.text() == "-":
             kamera_x = 0
         else:
             kamera_x = int(self.kamera_x.text())
 
-        if self.kamera_y.text() == '':
+        if self.kamera_y.text() == '' or self.kamera_y.text() == '-':
             kamera_y = 0
         else:
             kamera_y = int(self.kamera_y.text())
 
-        if self.kamera_z.text() == '':
+        if self.kamera_z.text() == '' or self.kamera_z.text() == '-':
             kamera_z = 0
         else:
             kamera_z = int(self.kamera_z.text())
