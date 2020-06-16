@@ -78,16 +78,18 @@ Zrezygnowałem z przybliżania obiektu, gdyż można przybliżyć obiekt za pomo
 
 Do ukończenia wszystkich założonych rzeczy pozostało mi usunięcie powierzchni zasłoniętych, ustawienia światła oraz obracanie obiektu myszką. Myślę, że to ostatnie jest najłatwiejsze z podanych, gdyż mam już zaimplementowane macierze przekształceń i wystarczy pobrać wartości z kliknięcia i przesunięcia myszką. 
 
-# README
+# Jak uruchomić
 
-do zainstalowania - pip3 install PyQt5
+Otwórz główny katalog projektu i uruchom polecenie:
 
-do uruchomienia - python3 main_window.py
+```
+pip install -r requirements.txt
+```
 
-lpm - przesuwanie obiektu
+Aby uruchomić program należy uruchomić polecenie:
 
-ppm - obracanie obiektu w OX i OY
+```
+python3 main_window.py
+```
 
-scroll - przyblizanie obiektu
 
-suwak - obracanie obiektu w OZ
